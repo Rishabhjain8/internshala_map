@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link href="style.css" rel="stylesheet" />
+  <title>Map Template using Mustache.js</title>
+</head>
+
+<body>
+  <div>
+    <form id="form">
+      <input type="text" name="title" value="" id="title" placeholder="Enter the title" required>
+      <input type="text" name="desc" value="" id="desc" placeholder="Enter the description" required>
+      <input type="text" name="latitude" value="" id="latitude" placeholder="Enter the latitude" required>
+      <input type="text" name="longitude" value="" id="longitude" placeholder="Enter the longitude" required>
+      <input type="date" id="date" name="date" required>
+      <input type="submit" value="Add Data" />
+    </form>
+    <script id="template" type="x-tmpl-mustache">
+      <ul>
+      <li>
+      {{tile}}
+      </li>
+      <li>
+      {{desc}}
+      </li>
+      <li>
+      {{latitude}}/{{longitude}}
+      </li>
+      <li>
+       {{date}}
+      </li>
+      </ul>
+      </script>
+    <img src="Test-image.jpeg" alt="Map" />
+    <div id="target"></div>
+
+  </div>
+  <script src="https://unpkg.com/mustache@latest"></script>
+  <script>
+    let form = document.getElementById("form");
+
+    form.addEventListener("submit", addData);
+
+    function addData(e) {
+      e.preventDefault();
+      var template = document.getElementById("template").innerHTML;
+      var rendered = Mustache.render(template, {
+        title: document.getElementById("title").value,
+        desc: document.getElementById("desc").value,
+        latitude: document.getElementById("latitude").value,
+        longitude: document.getElementById("longitude").value,
+        date: document.getElementById("date").value,
+      });
+      document.getElementById("target").innerHTML = rendered;
+    }
+  </script>
+</body>
+
+</html>
